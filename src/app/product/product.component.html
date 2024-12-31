@@ -1,0 +1,57 @@
+<!-- Header Section -->
+<div class="header">
+  <h2>Products</h2>
+  <p-button label="Add Products" (click)="showAddModal()" />
+</div>
+
+<!-- Table displaying the list of products -->
+<p-table [value]="products" [tableStyle]="{ 'min-width': '50rem' }" [paginator]="true" [rows]="5">
+
+  <!-- Filter Component in Table Caption -->
+  <ng-template pTemplate="caption">
+    <app-filter-product (selectCategory)="getProductsByCategory($event)"></app-filter-product>
+  </ng-template>
+
+  <!-- Table Header -->
+  <ng-template pTemplate="header">
+    <tr>
+      <th>Title</th>
+      <th>Price</th>
+      <th>Category</th>
+      <th>Image</th>
+      <th></th>
+    </tr>
+  </ng-template>
+  <!-- Table Body -->
+  <ng-template pTemplate="body" let-product>
+    <tr>
+      <td>{{ product.title }}</td>
+      <td>${{ product.price }}</td>
+      <td>{{ product.category }}</td>
+      <td><img src="{{product.image}}" alt="Product Image" height="40px"></td>
+      <td><button pButton icon="pi pi-pencil" class="p-button-rounded p-button-primary"
+          (click)="showEditModal(product)"></button>
+        <button pButton icon="pi pi-trash" class="p-button-rounded p-button-warning"
+          (click)="deleteProduct(product)"></button>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>
+
+<!-- Add/Edit Product Modal Component -->
+<app-add-edit-product [displayAddEditModal]="displayAddEditModal" (clickClose)="hideAddModal($event)"
+  (clickAddEdit)="saveorUpdateProductList($event)" [selectedProduct]="selectedProduct"></app-add-edit-product>
+
+<!-- Confirmation Dialog for Deleting a Product -->
+<p-confirmDialog header="Delete"></p-confirmDialog>
+
+<!-- Toast Notification for User Feedback -->
+<p-toast position="bottom-right" />
+
+<!-- ngx-charts pie chart -->
+<div class="chart-section" style="text-align: center;">
+  <h2>Product Distribution by Category</h2>
+  <ngx-charts-pie-chart [view]="view" [scheme]="'vivid'" [results]="chartData" [legend]="showLegend" [labels]="true"
+    [doughnut]="false" [gradient]="false">
+  </ngx-charts-pie-chart>
+</div>

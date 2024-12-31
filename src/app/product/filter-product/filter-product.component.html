@@ -1,0 +1,7 @@
+<!-- 
+Dropdown component to display and select product categories.
+Uses PrimeNG's p-dropdown for UI consistency and functionality.
+-->
+<p-dropdown [options]="categories" [(ngModel)]="selectedCategory" [showClear]="true" placeholder="Select a Category"
+  (onChange)="onChangeCategory($event)">
+</p-dropdown>

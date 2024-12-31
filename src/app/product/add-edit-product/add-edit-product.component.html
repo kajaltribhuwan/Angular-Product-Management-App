@@ -1,0 +1,55 @@
+<!-- Dialog for Adding or Editing a Product -->
+<p-dialog header="{{modalType}} Product" [modal]="true" [(visible)]="displayAddEditModal" [style]="{ width: '40rem' }"
+  (onHide)="closeModal()">
+
+  <!-- Form for Adding/Editing Product Details -->
+  <form [formGroup]="productForm" class="product-form">
+    <div class="p-fluid">
+      <div class="field">
+        <label class="block" for="title">Title</label>
+        <input type="text" pInputText id="title" formControlName="title" />
+        <small class="p-error block"
+          *ngIf="productForm.controls['title'].invalid && productForm.controls['title'].dirty">Title is required</small>
+      </div>
+    </div>
+    <div class="p-fluid">
+      <div class="field">
+        <label for="price" class="block">Price</label>
+        <p-inputNumber id="price" inputId="integeronly" formControlName="price" />
+        <small class="p-error block"
+          *ngIf="productForm.controls['price'].invalid && productForm.controls['price'].dirty">Price is required</small>
+      </div>
+    </div>
+    <div class="p-fluid">
+      <div class="field">
+        <label for="" class="block">Description</label>
+        <textarea pInputTextarea formControlName="description" [autoResize]="true">
+        </textarea>
+      </div>
+    </div>
+    <div class="p-fluid">
+      <div class="field">
+        <label for="image" class="block">Image</label>
+        <input type="text" pInputText id="image" formControlName="image" />
+        <small class="p-error block"
+          *ngIf="productForm.controls['image'].invalid && productForm.controls['image'].dirty">Image is required</small>
+
+      </div>
+    </div>
+    <div class="p-fluid">
+      <div class="field">
+        <label for="category" class="block">Category</label>
+        <input type="text" pInputText id="category" formControlName="category" />
+        <small class="p-error block"
+          *ngIf="productForm.controls['category'].invalid && productForm.controls['category'].dirty">Category is
+          required</small>
+      </div>
+    </div>
+  </form>
+
+  <!-- Footer with Action Buttons -->
+  <ng-template pTemplate="footer">
+    <p-button label="Cancel" severity="danger" (click)="closeModal()" />
+    <p-button label="{{modalType}}" severity="primary" (click)="addEditProduct()" [disabled]="productForm.invalid" />
+  </ng-template>
+</p-dialog>
